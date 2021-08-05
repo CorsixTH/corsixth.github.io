@@ -1,0 +1,793 @@
+/*
+ * SPDX-FileCopyrightText: 2021 Romain Vigier <contact AT romainvigier.fr>
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
+@font-face
+{
+	font-family: 'Lato';
+	src: local('Lato Bold'), local('Lato-Bold'),
+		url('fonts/subset-Lato-Bold.woff2') format('woff2'),
+		url('fonts/subset-Lato-Bold.woff') format('woff');
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face
+{
+	font-family: 'Lato';
+	src: local('Lato Italic'), local('Lato-Italic'),
+		url('fonts/subset-Lato-Italic.woff2') format('woff2'),
+		url('fonts/subset-Lato-Italic.woff') format('woff');
+	font-weight: normal;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face
+{
+	font-family: 'Lato';
+	src: local('Lato Bold Italic'), local('Lato-BoldItalic'),
+		url('fonts/subset-Lato-BoldItalic.woff2') format('woff2'),
+		url('fonts/subset-Lato-BoldItalic.woff') format('woff');
+	font-weight: bold;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face
+{
+	font-family: 'Lato';
+	src: local('Lato Regular'), local('Lato-Regular'),
+		url('fonts/subset-Lato-Regular.woff2') format('woff2'),
+		url('fonts/subset-Lato-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face
+{
+	font-family: 'Jost*';
+	src: local('Jost* 700 Bold'), local('Jost-Bold'),
+		url('fonts/subset-Jost-Bold.woff2') format('woff2'),
+		url('fonts/subset-Jost-Bold.woff') format('woff');
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face
+{
+	font-family: 'Jost*';
+	src: local('Jost* 400 Book'), local('Jost-Book'),
+		url('fonts/subset-Jost-Book.woff2') format('woff2'),
+		url('fonts/subset-Jost-Book.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+li,
+figure,
+figcaption,
+pre
+{
+	margin: 0;
+	padding: 0;
+}
+
+html
+{
+	background: #fff;
+	color: #000;
+	font: normal 1em/1em sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4
+{
+	font: inherit;
+}
+
+ul
+{
+	list-style: none;
+}
+
+a
+{
+	text-decoration: none;
+	color: inherit;
+}
+
+img,
+video
+{
+	max-width: 100%;
+	height: auto;
+}
+
+iframe
+{
+	border: none;
+}
+
+
+.canvas
+{
+	height: 100%;
+	background: #bd6d6c url(background.jpg) fixed center;
+	background-size: cover;
+}
+
+.canvas::before
+{
+	content: '';
+	z-index: -1;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: #bd6d6c url(background.jpg) center;
+	background-size: cover;
+}
+
+.site
+{
+	box-sizing: border-box;
+	position: relative;
+	display: grid;
+	grid-template-areas:
+		"header menu"
+		"content content"
+		"footer footer";
+	grid-template-columns: auto 1fr;
+	grid-template-rows: auto auto 1fr;
+	align-items: start;
+	gap: 4em 0;
+	max-width: 64em;
+	min-height: 100%;
+	margin: 0 auto;
+	padding: 0 2em;
+	font: 1.2em/1.5em 'Lato', sans-serif;
+}
+
+.site-header,
+.site-menu,
+.content,
+.site-footer
+{
+	padding: 2em;
+	background: #fff;
+}
+
+.site-header,
+.site-menu
+{
+	padding: 0 1em;
+	position: sticky;
+	top: 0;
+	background: rgba(236, 250, 245, 0.95);
+	font: 1em/1em 'Jost*', sans-serif;
+}
+
+.site-header a,
+.site-menu a
+{
+	display: block;
+	padding: 1em 1em;
+}
+
+.site-header a:hover,
+.site-header a:focus,
+.site-menu a:hover,
+.site-menu a:focus
+{
+	background: #00a177;
+	color: #fff;
+}
+
+.site-header
+{
+	grid-area: header;
+	border-radius: 0 0 0 0.4em;
+	font-weight: bold;
+}
+
+.site-header .title::before
+{
+	content: '';
+	display: inline-block;
+	vertical-align: top;
+	width: 1.5em;
+	height: 1.5em;
+	margin: -0.25em 0.5em -0.25em 0;
+	background: #000;
+	-webkit-mask: url(icons/logo.svg) center;
+	-webkit-mask-size: 100%;
+	mask: url(icons/logo.svg) center;
+	mask-size: 100%;
+}
+
+.site-header a:hover .title::before,
+.site-header a:focus .title::before
+{
+	background: #fff;
+}
+
+.site-menu
+{
+	grid-area: menu;
+	box-sizing: border-box;
+	border-radius: 0 0 0.4em 0;
+}
+
+.site-menu .menu
+{
+	display: flex;
+	justify-content: flex-end;
+}
+
+.site-menu .item-submenu
+{
+	position: relative;
+}
+
+.site-menu .submenu-link
+{
+	cursor: pointer;
+}
+
+.site-menu .submenu-link::after
+{
+	content: '▾';
+	padding-left: 0.5em;
+}
+
+.site-menu .submenu
+{
+	position: absolute;
+	bottom: 100%;
+	right: 0;
+	padding: 1em;
+	border-radius: 0 0 0.4em 0.4em;
+	background: rgba(236, 250, 245, 0.95);
+}
+
+.site-menu .item-submenu:hover .submenu,
+.site-menu .item-submenu:focus .submenu,
+.site-menu .item-submenu:focus-within .submenu
+{
+	top: 100%;
+	bottom: initial;
+}
+
+.site-menu .submenu .link
+{
+	position: relative;
+	padding-left: 3em;
+}
+
+.site-menu .submenu .link::before
+{
+	content: '';
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 1em;
+	width: 1em;
+	height: 1em;
+	margin-top: -0.5em;
+	background-color: #000;
+	-webkit-mask-repeat: no-repeat center;
+	-webkit-mask-position: center;
+	-webkit-mask-size: 100%;
+	mask-repeat: no-repeat center;
+	mask-position: center;
+	mask-size: 100%;
+}
+
+.site-menu .submenu .link.discord::before
+{
+	-webkit-mask-image: url(icons/discord.svg);
+	mask-image: url(icons/discord.svg);
+}
+
+.site-menu .submenu .link.facebook::before
+{
+	-webkit-mask-image: url(icons/facebook.svg);
+	mask-image: url(icons/facebook.svg);
+}
+
+.site-menu .submenu .link.matrix::before
+{
+	-webkit-mask-image: url(icons/matrix.svg);
+	mask-image: url(icons/matrix.svg);
+}
+
+.site-menu .submenu .link.reddit::before
+{
+	-webkit-mask-image: url(icons/reddit.svg);
+	mask-image: url(icons/reddit.svg);
+}
+
+.site-menu .submenu .link.twitter::before
+{
+	-webkit-mask-image: url(icons/twitter.svg);
+	mask-image: url(icons/twitter.svg);
+}
+
+.site-menu .submenu .link:hover::before,
+.site-menu .submenu .link:focus::before
+{
+	background-color: #fff;
+}
+
+.site-content
+{
+	grid-area: content;
+}
+
+.poster
+{
+	display: grid;
+	grid-template-areas:
+		"video details";
+	grid-template-columns: 1fr 1fr;
+	align-items: center;
+	overflow: hidden;
+	margin-bottom: 4em;
+	border-radius: 0.4em;
+	background: rgba(0, 161, 119, 0.95);
+	color: #fff;
+}
+
+.poster .video
+{
+	grid-area: video;
+}
+
+.poster .video video
+{
+	display: block;
+	width: 100%;
+}
+
+.poster .details
+{
+	grid-area: details;
+	padding: 2em 1em;
+	text-align: center;
+}
+
+.poster .description
+{
+	font-size: 1.1em;
+}
+
+.poster .download-button
+{
+	margin: 1em 0;
+}
+
+.poster .details .notes
+{
+	width: 75%;
+	margin: 0 auto;
+	font-size: 0.8em;
+	line-height: 1.2em;
+}
+
+.poster .details .notes a
+{
+	border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.poster .details .notes a:hover,
+.poster .details .notes a:focus
+{
+	border-color: #fff;
+}
+
+.content
+{
+	border-radius: 0.4em;
+	word-wrap: break-word;
+}
+
+.content>section
+{
+	margin-bottom: 2em;
+	padding-bottom: 2em;
+	border-bottom: 1px solid #ccc;
+}
+
+.content>section:last-child
+{
+	margin-bottom: 0;
+	padding-bottom: 0;
+	border-bottom: none;
+}
+
+.content h2,
+.content h3,
+.content h4
+{
+	margin: 2em 0 1em;
+	font: bold 1em/1em 'Jost*', sans-serif;
+}
+
+.content h2:first-child,
+.content h3:first-child,
+.content h4:first-child
+{
+	margin-top: 0;
+}
+
+.content h2
+{
+	font-size: 1.6em;
+}
+
+.content h3
+{
+	font-size: 1.4em;
+}
+
+.content h4
+{
+	font-size: 1.2em;
+}
+
+.content p,
+.content ul,
+.content pre,
+.content figure
+{
+	margin-bottom: 1em;
+}
+
+.content p:last-child,
+.content ul:last-child,
+.content pre:last-child,
+.content figure:last-child
+{
+	margin-bottom: 0;
+}
+
+.content li
+{
+	margin-left: 2em;
+	list-style: disc;
+}
+
+.content figure img,
+.content figure video,
+.content figure iframe
+{
+	display: block;
+	max-width: 100%;
+	margin: 0 auto;
+}
+
+.content figure figcaption
+{
+	margin-top: 0.5em;
+	color: #666;
+	font: 0.8em/1.2em 'Jost*', sans-serif;
+	text-align: center;
+}
+
+.content figure.screenshot>a
+{
+	display: block;
+	border: none;
+}
+
+.content figure.screenshot>a:active
+{
+	margin: 0;
+	padding: 0;
+	border-radius: 0;
+}
+
+.content pre
+{
+	padding: 1em;
+	background-color: #eee;
+	font: 1em/1em monospace;
+	overflow-x: auto;
+}
+
+.content a
+{
+	color: #00a177;
+	border-bottom: 1px solid rgba(0, 161, 119, 0.6);
+}
+
+.content a:hover,
+.content a:focus
+{
+	border-color: #00a177;
+}
+
+.content a:active
+{
+	margin: 0 -0.1em;
+	padding: 0 0.1em;
+	background-color: #00a177;
+	color: #fff;
+	border-radius: 0.2em;
+}
+
+.news .release
+{
+	margin-bottom: 2em;
+	padding-bottom: 2em;
+	border-bottom: 1px solid #ccc;
+}
+
+.news .release:last-child
+{
+	margin-bottom: 0;
+	padding-bottom: 0;
+	border-bottom: none;
+}
+
+.news .release header
+{
+	font: 1em/1.2em 'Jost*', sans-serif;
+}
+
+.news .release header .date
+{
+	margin-bottom: 1em;
+	color: #666;
+	font-size: 0.8em;
+}
+
+.news .release header .title
+{
+	margin-top: 0;
+}
+
+.news .release header .title a
+{
+	color: inherit;
+	border: initial;
+}
+
+.news .release header .title a:hover,
+.news .release header .title a:focus
+{
+	color: #00a177;
+}
+
+.site-footer
+{
+	grid-area: footer;
+	align-self: end;
+	background: none;
+	color: #fff;
+	font-size: 0.8em;
+	text-align: center;
+	text-shadow: 0 1px 0.1em #000;
+}
+
+.menu-button
+{
+	overflow: hidden;
+	display: block;
+	position: fixed;
+	top: 0.5em;
+	right: 0.5em;
+	width: 0;
+	height: 2em;
+	margin: 0;
+	margin-right: 2em;
+	padding: 0;
+	padding-left: 2em;
+	border: none;
+	border-radius: 0.4em;
+	background: rgba(236, 250, 245, 0.95);
+	color: transparent;
+	font: inherit;
+	cursor: pointer;
+}
+
+.menu-button:hover,
+.menu-button:focus
+{
+	background: #00a177;
+}
+
+.menu-button::before
+{
+	content: '';
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: block;
+	background-color: #000;
+	-webkit-mask: url(icons/menu-button.svg) no-repeat center;
+	-webkit-mask-size: 50%;
+	mask: url(icons/menu-button.svg) no-repeat center;
+	mask-size: 50%;
+}
+
+.menu-button.close::before
+{
+	-webkit-mask-image: url(icons/menu-close.svg);
+	mask-image: url(icons/menu-close.svg);
+}
+
+.menu-button:hover::before,
+.menu-button:focus::before
+{
+	background-color: #fff;
+}
+
+.site-header.hamburger
+{
+	display: flex;
+}
+
+.site-menu.hamburger
+{
+	overflow-y: scroll;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: 0;
+	padding: 2em;
+	border-radius: 0;
+	text-align: left;
+}
+
+.site-menu.hamburger.hidden
+{
+	position: absolute;
+	bottom: 100%;
+	padding: 0;
+}
+
+.site-menu.hamburger .submenu-link::after
+{
+	display: none;
+}
+
+a.action
+{
+	display: inline-block;
+	padding: 0.5em 1em;
+	border-bottom: 0.1em solid #bd6d6c;
+	border-radius: 0.2em;
+	background: #ce8d8c;
+	color: #fff;
+	font: bold 1.5em/1em 'Jost*', sans-serif;
+}
+
+a.action:hover,
+a.action:focus
+{
+	background: #bd6d6c;
+	border-bottom: 0.1em solid #9f4b4a;
+}
+
+a.action:active
+{
+	background: #eb7978;
+}
+
+
+@media (max-width: 64em)
+{
+	.site
+	{
+		display: block;
+	}
+
+	.site-header,
+	.site-menu
+	{
+		position: static;
+	}
+
+	.site-header
+	{
+		border-radius: 0 0 0.4em 0.4em;
+		text-align: center;
+	}
+
+	.site-menu
+	{
+		margin-top: 1em;
+		border-radius: 0.4em;
+	}
+
+	.site-menu .menu
+	{
+		display: block;
+	}
+
+	.site-menu .submenu
+	{
+		position: static;
+		margin-left: 2em;
+		padding: 0;
+		background: none;
+	}
+
+	.site-content
+	{
+		margin: 2em 0;
+	}
+
+	.poster
+	{
+		display: block;
+		margin-bottom: 2em;
+	}
+}
+
+@media (max-width: 30em)
+{
+	.site
+	{
+		font-size: 1em;
+	}
+
+	.site-header,
+	.site-menu,
+	.menu-button
+	{
+		font-size: 1.2em;
+	}
+}
+
+@media (max-width: 22em)
+{
+	.site
+	{
+		padding: 0 0.5em;
+	}
+
+	.menu-button
+	{
+		margin-right: 0.5em;
+	}
+
+	.site-menu.hamburger
+	{
+		padding: 0.5em;
+	}
+
+	.content
+	{
+		padding: 1em;
+	}
+
+	.poster .details
+	{
+		padding: 1em;
+	}
+}

@@ -1,0 +1,6 @@
+.cache
+.temp_dist
+
+build
+dist
+node_modules

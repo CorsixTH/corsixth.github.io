@@ -1,0 +1,29 @@
+<main id="index" class="site-content">
+	<section class="poster">
+		<div class="video">
+			<video width="1024" height="768" autoplay loop controls muted>
+				<source src="media/gameplay.webm" type="video/webm">
+				<source src="media/gameplay.mp4" type="video/mp4">
+			</video>
+		</div>
+		<div class="details">
+			<p class="description">CorsixTH aims to re-implement the game engine of Theme Hospital, and be able to load the original game data files. After most of the original engine has been re-implemented in open source code, the project will serve as a base from which extensions and improvements to the original game can be made.</p>
+			<a href="download.html" class="download-button action">Download</a>
+			<p class="notes">To play CorsixTH, you will need either the <a href="http://th.corsix.org/Demo.zip">demo</a>, or the full game of Theme Hospital, available for example at <a href="https://www.gog.com/game/theme_hospital">GOG.com</a>.</p>
+		</div>
+	</section>
+	<section class="news content">
+		<h2>Latest news</h2>
+		{{#releases}}
+		<article class="release">
+			<header>
+				<p class="date">{{date}}</p>
+				<h3 class="title"><a href="{{{url}}}">{{title}}</a></h3>
+			</header>
+			<section class="release-notes">
+				{{{content}}}
+			</section>
+		</article>
+		{{/releases}}
+	</section>
+</main>
