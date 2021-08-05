@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" class="canvas">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CorsixTH</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body class="site">
+	<header id="header" class="site-header">
+		<a href="/">
+			<h1 class="title">CorsixTH</h1>
+		</a>
+	</header>
+	<nav id="menu" class="site-menu">
+		<ul class="menu" data-current-page="download">
+			<li><a href="download.html" class="link">Download</a></li>
+			<li><a href="media.html" class="link">Media</a></li>
+			<li><a href="https://github.com/CorsixTH/CorsixTH/wiki" class="link">Wiki</a></li>
+			<li><a href="https://github.com/CorsixTH/CorsixTH/issues/new" class="link">Report a bug</a></li>
+			<li><a href="https://github.com/CorsixTH/CorsixTH" class="link">Source code</a></li>
+			<li class="item-submenu">
+				<a class="submenu-link">Social</a>
+				<ul class="submenu">
+					<li><a href="https://discord.gg/Mxeztvh" class="link discord">Discord</a></li>
+					<li><a href="https://matrix.to/#/%23corsixth-general:matrix.org" class="link matrix">Matrix</a></li>
+					<li><a href="https://www.reddit.com/r/corsixth" class="link reddit">Reddit</a></li>
+					<li><a href="https://facebook.com/corsixth" class="link facebook">Facebook</a></li>
+					<li><a href="https://twitter.com/corsixth" class="link twitter">Twitter</a></li>
+				</ul>
+		</ul>
+	</nav>
+	<main id="download" class="site-content content">
+		<section>
+			<h2>Window & macOS</h2>
+			<p>Installer and standalone application can be downloaded from the <a href="https://github.com/CorsixTH/CorsixTH/releases/latest">latest release page</a>.</p>
+			<p><a href="https://github.com/CorsixTH/CorsixTH/releases/latest" class="action">Download latest release</a></p>
+		</section>
+		<section>
+			<h2>Linux</h2>
+
+			<h3>Flatpak</h3>
+			<p>A flatpak contains all the needed dependencies (except the original game assets) and runs in a sandboxed environment.</p>
+			<p><a href="https://flathub.org/apps/details/com.corsixth.corsixth" class="action">Download from Flathub</a></p>
+
+			<h3>Package manager</h3>
+			<p>Debian/Ubuntu:</p>
+			<pre><code>sudo apt install corsix-th</code></pre>
+			<p>Fedora:</p>
+			<pre><code>sudo dnf install corsix-th</code></pre>
+			<p>For other distributions, <a href="https://repology.org/project/corsixth/versions">check on Repology</a> if a package is available.</p>
+		</section>
+	</main>
+	<footer id="footer" class="site-footer">
+		<p>© 2021 CorsixTH</p>
+	</footer>
+	<script src="script.js"></script>
+</body>
+</html>
