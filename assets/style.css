@@ -651,6 +651,7 @@ iframe
 
 .site-menu.hamburger
 {
+	z-index: 1000;
 	overflow-y: scroll;
 	position: fixed;
 	top: 0;
