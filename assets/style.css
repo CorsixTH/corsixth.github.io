@@ -591,6 +591,7 @@ iframe
 
 .menu-button
 {
+	z-index: 1100;
 	overflow: hidden;
 	display: block;
 	position: fixed;
