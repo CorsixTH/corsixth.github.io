@@ -343,15 +343,25 @@ iframe
 	grid-area: content;
 }
 
+.site-content.index
+{
+	display: grid;
+	grid-template-areas:
+		"poster poster"
+		"releases blogposts";
+	grid-template-columns: 1fr 1fr;
+	gap: 4em 2em;
+}
+
 .poster
 {
+	grid-area: poster;
 	display: grid;
 	grid-template-areas:
 		"video details";
 	grid-template-columns: 1fr 1fr;
 	align-items: center;
 	overflow: hidden;
-	margin-bottom: 4em;
 	border-radius: 0.4em;
 	background: rgba(0, 161, 119, 0.95);
 	color: #fff;
@@ -402,6 +412,16 @@ iframe
 .poster .details .notes a:focus
 {
 	border-color: #fff;
+}
+
+.releases
+{
+	grid-area: releases;
+}
+
+.blogposts
+{
+	grid-area: blogposts;
 }
 
 .content
@@ -535,47 +555,25 @@ iframe
 	border-radius: 0.2em;
 }
 
-.news .release
+.news li
 {
-	margin-bottom: 2em;
-	padding-bottom: 2em;
-	border-bottom: 1px solid #ccc;
+	margin-left: 0;
+	list-style: none;
 }
 
-.news .release:last-child
+.news .date
 {
-	margin-bottom: 0;
-	padding-bottom: 0;
-	border-bottom: none;
-}
-
-.news .release header
-{
-	font: 1em/1.2em 'Jost*', sans-serif;
-}
-
-.news .release header .date
-{
-	margin-bottom: 1em;
+	margin-right: 0.5em;
+	padding: 0.1em 0.4em;
+	border: 1px solid #666;
+	border-radius: 0.4em;
 	color: #666;
 	font-size: 0.8em;
 }
 
-.news .release header .title
+.news a.action
 {
-	margin-top: 0;
-}
-
-.news .release header .title a
-{
-	color: inherit;
-	border: initial;
-}
-
-.news .release header .title a:hover,
-.news .release header .title a:focus
-{
-	color: #00a177;
+	font-size: 1em;
 }
 
 .site-footer
@@ -744,10 +742,19 @@ a.action:active
 		margin: 2em 0;
 	}
 
+	.site-content.index
+	{
+		grid-template-areas:
+			"poster"
+			"releases"
+			"blogposts";
+		grid-template-columns: 1fr;
+		gap: 2em;
+	}
+
 	.poster
 	{
 		display: block;
-		margin-bottom: 2em;
 	}
 }
 
