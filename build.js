@@ -6,15 +6,16 @@ const fetch = require('node-fetch');
 const fs = require('fs-extra');
 const Mustache = require('mustache');
 const path = require('path');
-const remark = require('remark');
-const remarkBehead = require('remark-behead');
-const remarkGithub = require('remark-github');
-const remarkHtml = require('remark-html');
+const RssParser = require('rss-parser');
 
 
 const ASSETS_DIR = 'assets';
 const BUILD_DIR = 'build';
 const TEMPLATES_DIR = 'templates';
+
+const FEEDS = [
+	'https://corsixth.lewri.me/index.php/feed/',
+];
 
 
 async function build() {
@@ -31,6 +32,8 @@ async function renderPages() {
 	console.log('Rendering pages...');
 	const data = {
 		releases: await getReleases(),
+		posts: await getPosts(),
+		formatDate: () => (date, render) => (new Date(Date.parse(render(date)))).toLocaleDateString('en-GB', { year: 'numeric', month: 'numeric', day: 'numeric' }),
 	};
 	const templates = {
 		base: await fs.readFile(path.join(TEMPLATES_DIR, 'base.mustache'), { encoding: 'utf-8' }),
@@ -44,6 +47,7 @@ async function renderPages() {
 }
 
 async function getReleases() {
+	console.log('Fetching latests releases...');
 	const response = await fetch(
 		'https://api.github.com/repos/CorsixTH/CorsixTH/releases?per_page=5',
 		{
@@ -55,11 +59,27 @@ async function getReleases() {
 	return await Promise.all(releases.map(async release => {
 		return {
 			title: release.name,
-			date: (new Date(Date.parse(release.published_at))).toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
+			date: new Date(Date.parse(release.published_at)),
 			url: release.html_url,
-			content: String(await remark().use(remarkBehead, { depth: 3 }).use(remarkGithub).use(remarkHtml).process(release.body)),
 		}
 	}));
+}
+
+async function getPosts() {
+	let posts = [];
+	for (const url of FEEDS) {
+		console.log(`Fetching RSS feed '${url}'...`);
+		const parser = new RssParser();
+		const feed = await parser.parseURL(url);
+		feed.items.forEach(item => posts.push({
+			title: item.title,
+			date: new Date(Date.parse(item.pubDate)),
+			url: item.link,
+			source: { title: feed.title, url: feed.link },
+		}));
+	}
+	posts.sort((a, b) => a.date < b.date).splice(5);
+	return posts;
 }
 
 async function renderPage(templatePath, data, templates, outputPath) {
