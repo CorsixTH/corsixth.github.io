@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 const fs = require('fs-extra');
 const Mustache = require('mustache');
 const path = require('path');
