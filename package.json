@@ -2,6 +2,7 @@
   "name": "corsixth.github.io",
   "version": "1.0.0",
   "description": "Website for CorsixTH",
+  "type": "module",
   "scripts": {
     "predev": "npm run build",
     "dev": "node ./watch.js & npx parcel --cache-dir=./.cache --dist-dir=./.temp_dist ./build/index.html",
