@@ -3,11 +3,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 import fetch from 'node-fetch';
-const fs = require('fs-extra');
-const Mustache = require('mustache');
-const path = require('path');
-const RssParser = require('rss-parser');
-
+import fs from 'fs-extra';
+import Mustache from 'mustache';
+import path from 'path';
+import RssParser from 'rss-parser';
 
 const ASSETS_DIR = 'assets';
 const BUILD_DIR = 'build';
@@ -93,7 +92,7 @@ async function renderPage(templatePath, data, templates, outputPath) {
 build();
 
 
-module.exports = {
+export {
 	build,
 	copyAssets,
 	renderPages,
