@@ -69,13 +69,17 @@ async function getPosts() {
 	for (const url of FEEDS) {
 		console.log(`Fetching RSS feed '${url}'...`);
 		const parser = new RssParser();
-		const feed = await parser.parseURL(url);
-		feed.items.forEach(item => posts.push({
-			title: item.title,
-			date: new Date(Date.parse(item.pubDate)),
-			url: item.link,
-			source: { title: feed.title, url: feed.link },
-		}));
+		try {
+			const feed = await parser.parseURL(url);
+			feed.items.forEach(item => posts.push({
+				title: item.title,
+				date: new Date(Date.parse(item.pubDate)),
+				url: item.link,
+				source: { title: feed.title, url: feed.link },
+			}));
+		} catch (e) {
+			console.warn(e);
+		}
 	}
 	posts.sort((a, b) => a.date < b.date).splice(5);
 	return posts;
