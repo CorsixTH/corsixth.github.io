@@ -2,10 +2,9 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-const watch = require('node-watch');
+import watch from 'node-watch';
 
-const build = require('./build');
-
+import * as build from './build.js';
 
 const assets_watcher = watch(build.ASSETS_DIR, { recursive: true });
 assets_watcher.on('change', (e, name) => build.copyAssets());
