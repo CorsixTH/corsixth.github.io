@@ -82,7 +82,9 @@ ul,
 li,
 figure,
 figcaption,
-pre
+pre,
+details,
+summary
 {
 	margin: 0;
 	padding: 0;
@@ -532,6 +534,42 @@ iframe
 	background-color: #eee;
 	font: 1em/1em monospace;
 	overflow-x: auto;
+}
+
+.content details {
+	margin-bottom: 0.5em;
+	border: 1px solid rgba(0, 161, 119, 0.6);
+	border-radius: 0.4em;
+}
+
+.content details:hover,
+.content details:focus {
+	border: 1px solid #00a177;
+}
+
+.content details summary,
+.content details[open]::details-content {
+	padding: 0.5em 1em;
+}
+
+.content details summary {
+	position: relative;
+	cursor: pointer;
+}
+
+.content details summary::marker {
+	list-style: none;
+	content: '';
+}
+
+.content details summary::after {
+	position: absolute;
+	right: 1em;
+	content: '+';
+}
+
+.content details[open] summary::after {
+	content: '−';
 }
 
 .content a
